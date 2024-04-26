@@ -42,8 +42,7 @@ async def get_places():
         print(f"Error fetching places: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-
-# Додавання нового ресторану до бази даних.
+#Пости для того щоб додавати нові рестіки
 @app.post("/api/places/add")
 async def add_place(name: str = Body(...), description: str = Body(...), imageUrl: str = Body(...), latitude: float = Body(...), longitude: float = Body(...)):
     try:
@@ -62,18 +61,17 @@ async def add_place(name: str = Body(...), description: str = Body(...), imageUr
         print(f"Error adding place: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
     
-
+#ендпоінт для видалення компонента з бд 
 @app.delete("/api/places/delete/{object_id}")
 async def delete_place(object_id: str):
     try:
         db = mongo_client.get_database()
         collection = db.get_collection("restaurantsCollection")
 
-        # Конвертуємо ObjectId у відповідний формат для MongoDB
         from bson import ObjectId
         object_id = ObjectId(object_id)
 
-        # Видаляємо документ з бази даних за його ObjectId
+       
         result = collection.delete_one({"_id": object_id})
 
         if result.deleted_count == 1:
