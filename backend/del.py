@@ -1,7 +1,7 @@
 import requests
 
 # Потрібно ввести унікальний айді з базт даних монго
-object_id = "662bc2d4251de3ec8f414b33"
+object_id = "662f53e1fc32b3be920dc923"
 
 delete_url = f'http://localhost:5000/api/places/delete/{object_id}'
 

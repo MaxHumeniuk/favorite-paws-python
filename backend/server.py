@@ -1,12 +1,12 @@
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
-import time
 from bson import ObjectId  
 
 app = FastAPI()
 
-#Cross origin resource sharing дозволяє виконувати запити до сервера, який має інший домен, якщо ним не користуватись то браузер буде блокувати запити 
+# Cross origin resource sharing дозволяє виконувати запити до сервера, який має інший домен.
+# Якщо ним не користуватись, то браузер буде блокувати запити.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,20 +15,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#підключення до бази бази даних, яка лежить на клоуд сервері 
+# Підключення до бази даних, яка лежить на клоуд сервері 
 mongo_client = MongoClient("mongodb+srv://MaxHumeniuk:max556644332211@cluster.jogtiso.mongodb.net/restaurants")
 
+# Використання обробника подій життєвого циклу FastAPI для підключення до бази даних при старті додатку
 @app.on_event("startup")
 async def startup_event():
     try:
-        time.sleep(5)
+        # Опційно можна видалити затримку перед підключенням до бази даних
+        # time.sleep(5)
         mongo_client.server_info()
         print("Connected to the database")
     except Exception as e:
         print(f"Error connecting to the database: {e}")
 
-
-#Запити до бд для отримання колеції ресторанів за допомогою унікального айді 
+# Запити до бази даних для отримання колекції ресторанів за допомогою унікального айді 
 @app.get("/api/places")
 async def get_places():
     try:
@@ -42,7 +43,7 @@ async def get_places():
         print(f"Error fetching places: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-#Пости для того щоб додавати нові рестіки
+# Пости для того, щоб додавати нові рестіки
 @app.post("/api/places/add")
 async def add_place(name: str = Body(...), description: str = Body(...), imageUrl: str = Body(...), latitude: float = Body(...), longitude: float = Body(...)):
     try:
@@ -61,17 +62,15 @@ async def add_place(name: str = Body(...), description: str = Body(...), imageUr
         print(f"Error adding place: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
     
-#ендпоінт для видалення компонента з бд 
+# Ендпоінт для видалення компонента з бази даних 
 @app.delete("/api/places/delete/{object_id}")
 async def delete_place(object_id: str):
     try:
         db = mongo_client.get_database()
         collection = db.get_collection("restaurantsCollection")
 
-        from bson import ObjectId
         object_id = ObjectId(object_id)
 
-       
         result = collection.delete_one({"_id": object_id})
 
         if result.deleted_count == 1:
