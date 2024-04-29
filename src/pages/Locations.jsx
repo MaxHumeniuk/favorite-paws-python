@@ -28,7 +28,7 @@ export default function Locations() {
     <div className="container mx-auto px-12 py-12">
       <h1> </h1>
       {places.map(place => (
-        <div key={place.id} className="relative mb-6 rounded-2xl p-2 border-2 border-[#ffcc7f] bg-[#ffcc7f] delay-100 duration-100 transform hover:scale-105 transition ease-linear">
+        <div key={place._id} className="relative mb-6 rounded-2xl p-2 border-2 border-[#ffcc7f] bg-[#ffcc7f] delay-100 duration-100 transform hover:scale-105 transition ease-linear">
           <div className="flex items-center">
             <img src={place.imageUrl} alt={place.name} className="w-64 h-64 mr-8 rounded-md" />
             <img src={MapIcon} alt="map-icon" className={`w-14 h-14 cursor-pointer ${isBouncing ? 'animate-bounce' : ''}`} onClick={() => setShowMap(!showMap)} />
