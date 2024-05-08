@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 # Підключення до бази даних, яка лежить на клоуд сервері 
-mongo_client = MongoClient("mongodb+srv://MaxHumeniuk:max556644332211@cluster.jogtiso.mongodb.net/restaurants")
+mongo_client = MongoClient("mongodb+srv://oreo287787:ThtDzPv9JmzkNOWd@cluster1.gd61huh.mongodb.net/restaurants")
 
 # Використання обробника подій життєвого циклу FastAPI для підключення до бази даних при старті додатку
 @app.on_event("startup")
