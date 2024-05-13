@@ -1,52 +1,53 @@
 import React from 'react';
 import 'tailwindcss/tailwind.css';
+import Hum from '../assets/Максим.jpg';
+import Ivan from '../assets/Макс.jpg';
+import Teg from '../assets/Соля.jpg';
+import Nov from '../assets/Настя.jpg';
+import Zam from '../assets/Наталя.jpg';
 
 const contacts = [
   {
-    "name": "Івановський Максим",
-    "image": "/contact1.jpg",
-    "phone": "+380988083435",
-    "email": "Max7ioy7@gmail.com"
+    name: "Івановський Максим",
+    email: "Max7ioy7@gmail.com",
+    image: Ivan
   },
   {
-    "name": "Гуменюк Максим",
-    "image": "/assets/Hum.jpg",
-    "phone": "+380687195944",
-    "email": "maxhumeniuk321@gmail.com"
+    name: "Гуменюк Максим",
+    email: "maxhumeniuk321@gmail.com",
+    image: Hum
   },
   {
-    "name": "Анастасія Новосад",
-    "image": "/contact2.jpg",
-    "phone": "+380684534568",
-    "email": "nast127ia@gmail.com"
+    name: "Анастасія Новосад",
+    email: "nast127ia@gmail.com",
+    image: Nov
   },
   {
-    "name": "Теглівець Соломія",
-    "image": "/contact2.jpg",
-    "phone": "+380960018677",
-    "email": "solomiateglivec7@gmail.com"
+    name: "Теглівець Соломія",
+    email: "solomiateglivec7@gmail.com",
+    image: Teg
   },
   {
-    "name": "Замойська Наталія",
-    "image": "/contact2.jpg",
-    "phone": "+380733278685",
-    "email": "natalizam1315@gmail.com"
+    name: "Замойська Наталія",
+    email: "natalizam1315@gmail.com",
+    image: Zam
   }
 ];
 
-export default function Contact() {
+export default function ContactList() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Контактна інформація</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-        {contacts.map(contact => (
-          <div key={contact.email} className="flex flex-col items-center">
-            <img src={contact.image} alt={contact.name} className="w-40 h-40 mb-4" />
-            <p className="text-gray-600 mb-2">{contact.phone}</p>
-            <p className="text-gray-600 mb-2">{contact.email}</p>
-          </div>
-        ))}
+    <div className="container mx-auto px-4 py-8 bg-[#ffcc7f] rounded m-20 shadow-lg ">
+  <h1 className="font-bold text-3xl flex flex-col items-center text-[#b18458]  block rounded mt-2">Ви завжди можете зв'язатись із нами!</h1>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+    {contacts.map((contact, index) => (
+      <div key={index} className="flex flex-col items-center p-5">
+        <img src={contact.image} alt={contact.name} className="w-45 h-40 mb-4 shadow-lg delay-100 duration-100 transform hover:scale-110 transition ease-linear hover:shadow-2xl" />
+        <a href={`mailto:${contact.email}`} className="text-gray-600 mb-2 text-black bg-[#d4a373] rounded-md p-5 shadow-lg delay-100 duration-100 transform hover:scale-105 transition ease-linear hover:shadow-2xl">{contact.email}</a>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
   );
 }
